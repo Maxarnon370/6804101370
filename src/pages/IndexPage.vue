@@ -1,9 +1,10 @@
 <template>
   <q-page class="q-pa-md">
     <q-form class="q-gutter-md" style="max-width: 400px" @submit="onSubmit" @reset="onReset">
+    
       <q-input filled v-model="name" label="Your name *" hint="Name and surname" />
       <q-input filled type="number" v-model="age" label="Your age *" />
-      <q-toggle v-model="accept" label="I accept the license and terms (我接受许可和条款语言)" />
+      <q-toggle v-model="accept" class="no-wrap" label="I accept the license and terms (我接受许可和条款语言)" />
 
       <div>
         <q-btn label="SUBMIT" type="submit" color="primary" />
