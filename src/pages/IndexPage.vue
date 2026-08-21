@@ -1,10 +1,34 @@
 <template>
   <q-page class="q-pa-md">
-    <q-form class="q-gutter-md" style="max-width: 400px" @submit="onSubmit" @reset="onReset">
-    
-      <q-input filled v-model="name" label="Your name *" hint="Name and surname" />
-      <q-input filled type="number" v-model="age" label="Your age *" />
-      <q-toggle v-model="accept" class="no-wrap" label="I accept the license and terms (我接受许可和条款语言)" />
+    <q-form class="q-gutter-md" style="max-width: 650px" @submit="onSubmit" @reset="onReset">
+      
+      <!-- เพิ่ม lazy-rules และ :rules เพื่อบังคับให้ต้องกรอกข้อมูล -->
+      <q-input
+        filled
+        v-model="name"
+        label="Your name *"
+        hint="Name and surname"
+        lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Please type something']"
+      />
+
+      <q-input
+        filled
+        type="number"
+        v-model="age"
+        label="Your age *"
+        lazy-rules
+        :rules="[
+          val => val !== null && val !== '' || 'Please type your age',
+          val => val > 0 && val < 100 || 'Please type a real age'
+        ]"
+      />
+
+      <!-- จัดโครงสร้างด้วย Flexbox เพื่อไม่ให้ข้อความภาษาจีนตกบรรทัด -->
+      <div class="row items-center no-wrap">
+        <q-toggle v-model="accept" label="I accept the license and terms" />
+        <span class="q-ml-xs text-no-wrap">(我接受许可和条款语言)</span>
+      </div>
 
       <div>
         <q-btn label="SUBMIT" type="submit" color="primary" />
