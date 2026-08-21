@@ -1,9 +1,32 @@
 <template>
   <q-page class="q-pa-md">
-    <q-form class="q-gutter-md" style="max-width: 400px" @submit="onSubmit" @reset="onReset">
-      <q-input filled v-model="name" label="Your name (ชื่อ-สกุล)*" hint="Name and surname" />
-      <q-input filled type="number" v-model="age" label="Your age (อายุ)*" />
-      <q-toggle v-model="accept" label="I accept the license and terms" />
+    <q-form class="q-gutter-md" style="max-width: 650px" @submit="onSubmit" @reset="onReset">
+      
+      <q-input
+        filled
+        v-model="name"
+        label="Your name *"
+        hint="Name and surname"
+        lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Please type something']"
+      />
+
+      <q-input
+        filled
+        type="number"
+        v-model="age"
+        label="Your age *"
+        lazy-rules
+        :rules="[
+          val => val !== null && val !== '' || 'Please type your age',
+          val => val > 0 && val < 100 || 'Please type a real age'
+        ]"
+      />
+
+      <div class="row items-center no-wrap">
+        <q-toggle v-model="accept" label="I accept the license and terms" />
+        <span class="q-ml-xs text-no-wrap">(我接受许可和条款语言)</span>
+      </div>
 
       <div>
         <q-btn label="SUBMIT" type="submit" color="primary" />
